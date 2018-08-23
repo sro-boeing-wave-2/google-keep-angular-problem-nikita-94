@@ -1,0 +1,16 @@
+<mat-toolbar color="Secondary" id="toolbar">
+  <mat-toolbar-row>
+    <h1> <strong> Google Keep </strong> </h1>
+    <span class="spacer"></span>
+    <button mat-button (click)="openDialog()">Create</button>
+    <li *ngIf="data">
+      {{data.id}}
+    </li>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<footer>
+  <h6>Copyright &copy;</h6>
+</footer>

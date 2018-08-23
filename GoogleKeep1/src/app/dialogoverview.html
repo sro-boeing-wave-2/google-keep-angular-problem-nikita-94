@@ -1,0 +1,47 @@
+<section class="newNoteSection">
+  <h1 mat-dialog-title>create note</h1>
+  <div mat-dialog-content [formGroup]="CreateNoteDF">
+    <form [formGroup]="CreateNoteDF" (ngSubmit)="onSubmit()">
+      <div>Title</div>
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
+      </mat-form-field>
+      <div>Text</div>
+      <mat-form-field>
+        <input matInput placeholder="Text" formControlName="text">
+      </mat-form-field>
+      <div formArrayName="Label">
+        <button mat-button color="primary" (click)="addLabel()">AddLabel</button>
+        <div *ngFor="let label of Label.controls; let i = index">
+          <label>Label:
+            <mat-form-field [formGroupName]="i">
+              <input matInput placeholder="Label" formControlName="labelName">
+            </mat-form-field></label>
+        </div>
+      </div>
+      <section>
+        <div formArrayName="CheckList">
+          <a (click)="addCheckList()" mat-button color="primary">AddCheckList</a>
+          <div *ngFor="let checklist of CheckList.controls; let i = index">
+            <label>CheckList:
+              <mat-form-field [formGroupName]="i">
+                <input matInput placeholder="text" formControlName="ChecklistItemName">
+              </mat-form-field>
+            </label>
+          </div>
+        </div>
+      </section>
+      <label>Pin:
+        <mat-checkbox id="check" value="true" type="checkbox" formControlName="IsPinned"></mat-checkbox>
+        <span><small>
+            Pin Note
+          </small></span>
+      </label>
+      <div mat-dialog-actions>
+        <button mat-button mat-color="primary" (click)="onNoClick()">Back</button>
+        <button mat-button color="primary" onclick="document.location.href='http://localhost:4200'" (click)="onSubmit()" type="submit"
+          form="form" value="Submit">Create</button>
+      </div>
+    </form>
+  </div>
+</section>

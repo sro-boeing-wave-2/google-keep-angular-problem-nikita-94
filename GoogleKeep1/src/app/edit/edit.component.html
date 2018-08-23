@@ -1,0 +1,63 @@
+<section class="newNoteSection">
+  <h1 mat-dialog-title>Update note
+  </h1>
+  <div mat-dialog-content [formGroup]="EditForm">
+    <form [formGroup]="EditForm">
+      <input matInput formControlName="id" [(ngModel)]="note.id" placeholder="id" hidden/>
+      <div>Title:</div>
+      <mat-form-field>
+        <input matInput formControlName="title" [(ngModel)]="note.title" placeholder="Title" />
+      </mat-form-field>
+      <div>Text</div>
+      <mat-form-field>
+        <input matInput type="text" formControlName="text" [(ngModel)]="note.text" />
+      </mat-form-field>
+      <div formArrayName="checklist">
+        <a (click)="addCheckList()" mat-button-color="primary">AddCheckList</a>
+        <div *ngFor="let checklists of checklist.controls; let i = index">
+          <div [formGroupName]="i">
+            <mat-form-field>
+              <div *ngIf="note.checklist[i] != null">
+                <label>CheckList:
+                  <mat-form-field>
+                    <input matInput type="text" formControlName="ChecklistItemName" [(ngModel)]="note.checklist[i].checklistItemName" />
+                  </mat-form-field>
+                </label>
+                <!-- <label IsChecked:[(ngModel)]="note.checklist[i].checklistItemName">
+              <input type="radio" class="form-control" value="true" formControlName="IsChecked" checked/>Yes
+              <input type="radio" class="form-control" value="false" formControlName="IsChecked" />No
+            </label> -->
+              </div>
+              <div *ngIf="note.checklist[i] == undefined">
+                <label>CheckList1:
+                  <input type="text" matInput formControlName="ChecklistItemName" />
+                </label>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div formArrayName="labels">
+        <!-- <h4>Label</h4> -->
+        <a (click)="addLabel()">Add Label</a>
+        <div *ngFor="let label of labels.controls; let i = index">
+          <div [formGroupName]="i">
+            <div *ngIf="note.labels[i] !=null">
+              <label>Label:
+                <input type="text" formControlName="LabelName" [(ngModel)]="note.labels[i].labelName">
+              </label>
+            </div>
+            <div *ngIf="note.labels[i] == undefined">
+              <label>Label:
+                <input type="text" formControlName="LabelName">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-checkbox id="check" value="true" type="checkbox" formControlName="IsPinned"></mat-checkbox>
+      <button type="submit" (click)="saveDetails(note.id)">Submit</button>
+      <button type="cancel" (click)="onNoClick()">Cancel</button>
+    </form>
+  </div>
+</section>
